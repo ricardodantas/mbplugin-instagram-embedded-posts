@@ -81,4 +81,4 @@ The plugin uses Instagram's official embed API and includes:
 
 ## License
 
-This plugin is provided as-is for use with Micro.blog.
+This project is licensed under the [Apache License 2.0](LICENSE).
