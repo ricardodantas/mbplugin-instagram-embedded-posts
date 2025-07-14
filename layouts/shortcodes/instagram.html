@@ -1,25 +1,19 @@
-{{- $url := .Get 0 -}}
+{{- $postID := .Get 0 -}}
 {{- $caption := .Get "caption" -}}
 {{- $hideCaption := .Get "hidecaption" -}}
 
-{{- if not $url -}}
-{{- errorf "Instagram shortcode requires a URL parameter" -}}
+{{- if not $postID -}}
+{{- errorf "Instagram shortcode requires a post ID parameter" -}}
 {{- end -}}
 
-{{- /* Extract post ID from Instagram URL */ -}}
-{{- $postID := "" -}}
-{{- if findRE "instagram\\.com/p/([^/]+)" $url -}}
-{{- $matches := findRE "instagram\\.com/p/([^/]+)" $url -}}
-{{- $postID = replaceRE "instagram\\.com/p/([^/]+)" "$1" (index $matches 0) -}}
-{{- else if findRE "instagram\\.com/reel/([^/]+)" $url -}}
-{{- $matches := findRE "instagram\\.com/reel/([^/]+)" $url -}}
-{{- $postID = replaceRE "instagram\\.com/reel/([^/]+)" "$1" (index $matches 0) -}}
-{{- else -}}
-{{- errorf "Invalid Instagram URL format. Please use a valid Instagram post or reel URL." -}}
-{{- end -}}
-
-{{- /* Clean up post ID (remove query parameters) */ -}}
+{{- /* Clean up post ID (remove query parameters and whitespace) */ -}}
 {{- $postID = replaceRE "\\?.*" "" $postID -}}
+{{- $postID = trim $postID " " -}}
+
+{{- /* Validate post ID format (basic validation) */ -}}
+{{- if not (findRE "^[A-Za-z0-9_-]+$" $postID) -}}
+{{- errorf "Invalid Instagram post ID format. Please use only the post ID (e.g., 'ABC123def456')" -}}
+{{- end -}}
 
 <div class="instagram-embed-container" style="max-width: 540px; margin: 20px auto;">
     <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/{{ $postID }}/"
