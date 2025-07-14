@@ -1,5 +1,5 @@
 {
-    "version": "1.0.1",
+    "version": "1.0.2",
     "title": "Instagram embedded posts",
     "description": "This plug-in adds HTML meta tags to allow Instagram embedded posts on your Micro.blog"
 }
