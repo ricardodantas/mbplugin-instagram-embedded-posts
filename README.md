@@ -6,7 +6,7 @@ This is a Micro.blog plugin that allows you to easily embed Instagram posts and 
 
 ### Basic Usage
 
-To embed an Instagram post, use the shortcode with the Instagram URL:
+To embed an Instagram post, use the shortcode with the Instagram post ID:
 
 ```
 {{< instagram "ABC123def456" >}}
